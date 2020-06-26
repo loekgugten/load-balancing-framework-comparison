@@ -1,0 +1,42 @@
+No optimization flag set:
+gcc: 54.471569 seconds		(GCC 7.5.0 on Ubuntu 18.04)
+icc: 31.668275 seconds		(Parallel Studio XE 2020)
+clang-5.0: 68.827223 seconds
+
+Flag O3:
+gcc: 21.363415 seconds
+icc: 31.706186 seconds
+clang-5.0: 69.512805 seconds
+
+
+
+
+Strassen lace, for nxn (4096):   
+gcc, without O3: 12.061230 seconds
+gcc, with O3   : 4.903783 seconds
+
+
+
+
+
+
+Ulimit can be increased once, and then only lowered from the first increased value.
+Setting Ulimit to unlimited is sometimes not high enough, I think unlimited is around 500,000.
+
+OpenMP and TBB only run if you set ulimit to ~1,000,000.
+
+
+
+
+Cilk can not run the large trees for uts, since there is a hardcoded.
+"However, you're also hitting the spawn depth limit. The worker's deque is hard coded to 1024 entries"
+https://software.intel.com/en-us/forums/intel-cilk-plus/topic/610589
+
+
+
+Removed TBB functionalities:
+https://software.intel.com/content/dam/develop/external/us/en/documents/tbbrevamp.pdf
+
+
+Intel is moving from TBB to oneAPI TBB, which is still in Beta
+https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onetbb.html

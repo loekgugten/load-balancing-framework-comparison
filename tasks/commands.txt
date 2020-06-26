@@ -1,0 +1,105 @@
+============================================================
+|   Lace Directory                                         |
+============================================================
+Compile fibonacci lace icc:
+$ icc fib-lace.c lace.c -o ./bin/fib-lace-icc-O3 -lpthread -O3
+
++++
+
+Compile uts sequential gcc:
+$ gcc uts-seq.c uts.c rng/brg_sha1.c -DBRG_RNG -lm -o ./bin/uts-seq-gcc-O3 -O3
+
+Compile uts lace gcc:
+$ gcc uts-lace.c uts.c rng/brg_sha1.c lace.c -DBRG_RNG -lm -lpthread -o ./bin/uts-lace-gcc-O3 -O3
+
+Run uts sequential/lace:
+$ ./uts-seq -t 0 -b 2000 -q 0.200014 -m 5 -r 7
+$ ./uts-lace -t 0 -b 2000 -q 0.200014 -m 5 -r 7
+
++++
+
+Compile strassen lace gcc:
+$ gcc strassen-lace.c lace14.c -lpthread -lm -o ./bin/strassen-lace-gcc-O3 -O3
+
+Run strassen lace:
+./strassen-lace-gcc 4096 -w 8
+
+
+============================================================
+|   Cilk Directory                                         |
+============================================================
+Compile fibonacci cilk using icc:
+$ icc fib-cilk.c -o ./bin/fib-cilk-icc-O3 -O3
+
++++
+
+Compile uts sequential:
+$ gcc uts-seq.c uts.c rng/brg_sha1.c -DBRG_RNG -lm -o ./bin/uts-seq-gcc-O3 -O3
+
+Compile uts cilk:
+$ icc uts-cilk.c uts.c rng/brg_sha1.c -DBRG_RNG -lm -o ./bin/uts-cilk-icc-O3 -O3
+
+Run using gdb:
+$ gdb --args ./uts-cilk-icc -t 0 -b 2000 -q 0.200014 -m 5 -r 7
+Command above opens interface, then r enter to run it
+
+Run using valgrind:
+$ valgrind ./uts-cilk-icc -t 0 -b 2000 -q 0.200014 -m 5 -r 7
+
++++
+
+Compile strassen cilk gcc:
+$ gcc strassen-cilk.c -lm -o ./bin/strassen-cilk-gcc-O3 -O3 -fcilkplus
+
+Compile strassen cilk icc:
+$ icc strassen-cilk.c -lm -o ./bin/strassen-cilk-icc-O3 -O3
+
+Run strassen cilk:
+./strassen-cilk-gcc 4096
+
+
+============================================================
+|   OpenMP Directory                                       |
+============================================================
+Compile fibonacci omp using icc:
+$ icc fib-omp.c -fopenmp -o ./bin/fib-omp-icc-O3 -O3
+
++++
+
+Compile uts omp using gcc
+$ gcc uts-omp.c uts.c rng/brg_sha1.c -DBRG_RNG -lm -o ./bin/uts-omp-gcc-O3 -O3 -fopenmp
+
+Compile uts omp using icc
+$ icc uts-omp.c uts.c rng/brg_sha1.c -DBRG_RNG -lm -fopenmp -o ./bin/uts-omp-icc-O3 -O3
+
+Run for T3L:
+$ OMP_STACKSIZE=1000000 ./uts-omp-icc-O3 -t 0 -b 2000 -q 0.200014 -m 5 -r 7
+
++++
+
+Compile strassen omp using gcc
+$ gcc strassen-omp.c -lm -fopenmp -o ./bin/strassen-omp-gcc-O3 -O3
+
+Compile strassen omp using icc
+$ icc strassen-omp.c -lm -fopenmp -o ./bin/strassen-omp-icc-O3 -O3
+
+============================================================
+|   TBB Directory                                          |
+============================================================
+Compile fibonacci tbb using icpc:
+$ icpc fib-tbb.cpp -tbb -o ./bin/fib-tbb-icpc-O3 -O3
+
++++
+
+Compile uts tbb using icpc
+$ icpc uts-tbb.cpp uts.c rng/brg_sha1.c -DBRG_RNG -lm -tbb -o ./bin/uts-tbb-icpc-O3 -O3
+
++++
+
+Compile strassen tbb using icpc
+$ icpc strassen-tbb.cpp -lm -tbb -o ./bin/strassen-tbb-icpc-O3 -O3
+
+
+
+
+
