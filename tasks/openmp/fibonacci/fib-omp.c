@@ -22,7 +22,6 @@ __int64_t fibomp(__int64_t n) {
   int x, y;
   #pragma omp task untied shared(x) firstprivate(n)
   x = fibomp(n - 1);
-  #pragma omp task untied shared(y) firstprivate(n)
   y = fibomp(n - 2);
   #pragma omp taskwait
   return x + y;
